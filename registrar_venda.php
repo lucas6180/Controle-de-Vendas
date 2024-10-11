@@ -1,20 +1,41 @@
 <?php
-// Inclua sua conexão com o banco de dados aqui
 include('conexao.php');
 header('Content-Type: application/json');
 
-$data = json_decode(file_get_contents("php://input"), true);
-$response = []; // Inicializa a variável de resposta
+if ($conn->connect_error) {
+    die(json_encode(['status' => 'error', 'message' => 'Erro de conexão: ' . $conn->connect_error]));
+}
 
-if (isset($data['nome']) && isset($data['valor']) && isset($data['valorRecebido'])) {
-    $nome = $data['nome'];
+$data = json_decode(file_get_contents("php://input"), true);
+$response = []; 
+
+if (isset($data['nome']) && isset($data['valor']) && isset($data['valorRecebido']) && isset($data['valoresManuais'])) {
+    
+    
+    $nome = is_array($data['nome']) ? implode(", ", $data['nome']) : $data['nome'];
+    
+    if (!is_numeric($data['valor']) || !is_numeric($data['valorRecebido']) || !is_numeric($data['valoresManuais'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Os valores devem ser numéricos.']);
+        exit;
+    }
+
     $valorDaCompra = (float)$data['valor'];
     $valorRecebido = (float)$data['valorRecebido'];
+    $valoresManuais = (float)$data['valoresManuais'];
+
     $troco = $valorRecebido - $valorDaCompra;
 
-    $stmt = $conn->prepare("INSERT INTO vendas (nome, valorDaCompra, valorRecebido, troco) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("sddd", $nome, $valorDaCompra, $valorRecebido, $troco);
+    $stmt = $conn->prepare("INSERT INTO vendas (nome, valorDaCompra, valorRecebido, valoresManuais, troco) VALUES (?, ?, ?, ?, ?)");
 
+    if ($stmt === false) {
+        error_log('Prepare failed: ' . $conn->error);
+        echo json_encode(['status' => 'error', 'message' => 'Erro ao preparar a consulta: ' . $conn->error]);
+        exit;
+    }
+
+    $stmt->bind_param("sdddd", $nome, $valorDaCompra, $valorRecebido, $valoresManuais, $troco);
+
+    
     if ($stmt->execute()) {
         $response = [
             'status' => 'success',
@@ -22,9 +43,11 @@ if (isset($data['nome']) && isset($data['valor']) && isset($data['valorRecebido'
             'nome' => $nome,
             'valorDaCompra' => $valorDaCompra,
             'valorRecebido' => $valorRecebido,
+            'valoresManuais' => $valoresManuais,
             'troco' => $troco,
         ];
     } else {
+        error_log('SQL Error: ' . $stmt->error);
         $response = [
             'status' => 'error',
             'message' => 'Erro ao registrar venda: ' . $stmt->error
@@ -36,6 +59,5 @@ if (isset($data['nome']) && isset($data['valor']) && isset($data['valorRecebido'
     $response = ['status' => 'error', 'message' => 'Dados inválidos.'];
 }
 
-echo json_encode($response); // Certifique-se de codificar a resposta como JSON
+echo json_encode($response); 
 $conn->close();
-?>

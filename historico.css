@@ -97,7 +97,6 @@ th {
         section{
             width: 100%;
             padding: 20px;
-            border: solid red;
             display: flex;
             flex-direction: column;
             gap: 20px;
@@ -142,19 +141,19 @@ th {
         font-size: 19px;
         font-weight: 600;
     }
-    .header-result span{
+    span{
         font-size: 17px;
         font-weight: 600;
     }
     .header-result{
         display: flex;
-        flex-direction: column;
         gap: 10px;
+        align-items: center;
+
     }
     .resultado .info-venda{
         display: flex;
         flex-direction: column;
-        gap: 10px;
     }
     .resultado h4{
         color: white;
@@ -164,21 +163,67 @@ th {
         border: solid 1px;
     }
     .nota-venda {
-        background-color: #ffffff; /* Cor de fundo para cada venda */
-        padding: 15px; /* Espaçamento interno */
-        margin-bottom: 15px; /* Espaçamento entre as notas */
-        border-radius: 8px; /* Cantos arredondados */
-        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+        background-color: #ffffff; 
+        padding: 15px; 
+        margin-bottom: 15px; 
+        border-radius: 8px; 
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); 
     }
     .nota-venda h2{
         color: #000000;
     }
     .header-result {
-        margin-bottom: 10px; /* Espaço abaixo do cabeçalho da nota */
+        margin-bottom: 10px;
     }
     
     .info-venda p {
-        margin: 5px 0; /* Espaço entre as informações da venda */
+        margin: 5px 0; 
+    }
+    .menu-hamburguer {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        
     }
     
+    .bar {
+        height: 4px;
+        width: 30px;
+        background-color: #ffffff;
+        margin: 3px 0;
+    }
+    
+    nav {
+        position: absolute;
+        top: 80px;
+        left: 227px;
+        background-color: #000000;
+        display: none; 
+    }
+    
+    .nav-visible {
+        display: block; 
+    }
+    
+    nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    nav li {
+        margin: 5px 0;
+    }
+    
+    nav a {
+        text-decoration: none;
+        color: #ffffff;
+        padding: 8px 12px;
+        display: block;
+        font-size: 18px;
+    }
+    
+    nav a:hover {
+        background-color: #272727;
+    }
 }

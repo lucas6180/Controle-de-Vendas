@@ -1,29 +1,20 @@
 <?php
-include('conexao.php'); // Inclua seu arquivo de conexão com o banco de dados
 
-// Obtém o ID do corpo da requisição
-$id = isset($_POST['id']) ? intval($_POST['id']) : 0;
+include('conexao.php');
 
-// Log do ID recebido
-error_log("ID recebido para deleção: $id");
+$data = json_decode(file_get_contents('php://input'), true);
+$id = isset($data['id']) ? intval($data['id']) : 0;
 
-// Verifica se o ID é válido
 if ($id > 0) {
     $sql = "DELETE FROM vendas WHERE id = ?";
     $stmt = $conn->prepare($sql);
+    $stmt->bind_param('i', $id);
     
-    if (!$stmt) {
-        error_log("Erro na preparação da consulta: " . $conn->error);
-        echo json_encode(['status' => 'error', 'message' => 'Erro na preparação da consulta.']);
-        exit;
-    }
-    
-    $stmt->bind_param('i', $id); // Bind do parâmetro
-
     if ($stmt->execute()) {
+        
+        $conn->query("INSERT INTO id_reutilizaveis (id) VALUES ($id)");
         echo json_encode(['status' => 'success']);
     } else {
-        error_log("Erro ao executar a consulta: " . $stmt->error);
         echo json_encode(['status' => 'error', 'message' => 'Erro ao deletar a venda.']);
     }
 

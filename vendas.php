@@ -2,7 +2,7 @@
 include('conexao.php');
 header('Content-Type: application/json');
 
-$query = "SELECT * FROM vendas ORDER BY dataVenda DESC"; // Ajuste o nome da coluna para a data que você tem no banco
+$query = "SELECT * FROM vendas ORDER BY dataVenda DESC"; 
 $result = $conn->query($query);
 
 $vendas = [];

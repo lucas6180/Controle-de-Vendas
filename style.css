@@ -39,6 +39,8 @@ form {
     flex-direction: column;
     gap: 15px;
     padding-top: 20px;
+    height: 100%;
+    background-color: white;
 }
 form .title h2{
     text-align: center;
@@ -126,7 +128,7 @@ th {
         background-color: rgb(255, 255, 255);
         position: absolute;
         width: 350px;
-        height: 450px;
+        height: 510px;
         left: 20px;
         top: 100px;
         display: flex;
@@ -156,5 +158,111 @@ th {
         flex-direction: column;
         gap: 10px;
     }
+    .campo-itens{
+        display: flex;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .campo-itens select{
+        width: 100%;
+        height: 40px;
+        border: solid rgba(0, 0, 0, 0.651);
+        border-radius: 5px;
+        font-weight: 600;
+    }
+    .campo-input{
+        display: flex;
+        flex-direction: column;
+    }
+    .campo-input #valorCompraInput{
+        width: 213px;
+    }
+    .add-item{
+        width: 250px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        right: 4px;
+        cursor: pointer;
+    }
+    .add-item img{
+        width: 30px
+    }
+    .add-item p{
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .valor-compra p {
+        font-size: 18px;
+        font-weight: 500;
+    }
+    .menu-hamburguer {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        
+    }
     
+    .bar {
+        height: 4px;
+        width: 30px;
+        background-color: #ffffff;
+        margin: 3px 0;
+    }
+    
+    nav {
+        position: absolute;
+        top: 80px;
+        left: 190px;
+        background-color: #171717;
+        z-index: 2;
+        display: none; 
+    }
+    
+    .nav-visible {
+        display: block; 
+    }
+    
+    nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    nav li {
+        margin: 5px 0;
+    }
+    
+    nav a {
+        text-decoration: none;
+        color: #ffffff;
+        padding: 8px 12px;
+        display: block;
+    }
+    
+    nav a:hover {
+        background-color: #272727;
+    }
+ .cadastro-item{
+    border-radius: 5px;
+    height: 280px;
+   padding-top: 35px;
+   padding-left: 25px;
+   padding-right: 25px;
+ }  
+ .cadastro-item #nome{
+    width: 195px;
+ }
+ .cadastro-item #valor{
+    width: 120px;
+ }
+ .campo-cadastro{
+    display: flex;
+ }
+ .valor-item-cadastro{
+    display: flex;
+    flex-direction: column;
+ }
 }
